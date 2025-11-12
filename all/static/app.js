@@ -558,18 +558,263 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Браузер',
       icon: './static/icons/browser.svg',
       content: () => {
-        const wrap = el('div', { display: 'grid', gridTemplateRows: 'auto 1fr', gap: '8px' });
-        const bar = el('div', { display: 'flex', gap: '8px' });
-        const urlInput = input('text', window.translate ? window.translate('Введите URL') : 'Enter URL', { height: '34px' });
-        const go = btn(window.translate ? window.translate('Перейти') : 'Go');
-        const frame = el('iframe', { width: '100%', height: '100%', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px' });
-        frame.referrerPolicy = 'no-referrer';
-        frame.sandbox = 'allow-forms allow-scripts allow-same-origin';
-        const toUrl = v => { v = v.trim(); if (!v) return ''; if (/^https?:\/\//i.test(v)) return v; if (v.includes('.') && !v.includes(' ')) return 'https://' + v; return 'https://www.bing.com/search?q=' + encodeURIComponent(v); };
-        const navigate = () => { const u = toUrl(urlInput.value); if (u) frame.src = u; };
-        urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') navigate(); });
+        const wrap = el('div', { display: 'grid', gridTemplateRows: 'auto 1fr', gap: '12px', height: '100%' });
+        const bar = el('div', { display: 'flex', gap: '12px', alignItems: 'center' });
+        const urlInput = input('text', window.translate ? window.translate('Введите URL или поисковый запрос') : 'Enter URL or search query', { 
+          height: '42px',
+          flex: '1',
+          padding: '10px 16px',
+          fontSize: '16px',
+          borderRadius: '8px',
+          border: '1px solid rgba(255,255,255,0.2)',
+          background: 'rgba(255,255,255,0.1)',
+          color: '#fff'
+        });
+        urlInput.style.flex = '1';
+        urlInput.value = 'https://www.youtube.com/';
+        const go = btn(window.translate ? window.translate('Перейти') : 'Go', {
+          height: '42px',
+          padding: '10px 24px',
+          fontSize: '16px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          background: 'rgba(42, 107, 255, 0.8)',
+          border: '1px solid rgba(42, 107, 255, 0.3)',
+          borderRadius: '8px',
+          color: '#fff'
+        });
+        go.style.transition = 'all 0.2s';
+        go.addEventListener('mouseenter', () => {
+          go.style.background = 'rgba(42, 107, 255, 1)';
+        });
+        go.addEventListener('mouseleave', () => {
+          go.style.background = 'rgba(42, 107, 255, 0.8)';
+        });
+        const frameContainer = el('div', { 
+          width: '100%', 
+          height: '100%', 
+          position: 'relative',
+          background: 'rgba(0,0,0,0.3)',
+          borderRadius: '8px',
+          overflow: 'hidden'
+        });
+        const frame = el('iframe', { 
+          width: '100%', 
+          height: '100%', 
+          border: 'none',
+          background: 'transparent'
+        });
+        frame.referrerPolicy = 'no-referrer-when-downgrade';
+        frame.allow = 'fullscreen; geolocation; microphone; camera';
+        frame.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-modals';
+        
+        let currentErrorMsg = null;
+        
+        const toUrl = v => { 
+          v = v.trim(); 
+          if (!v) return ''; 
+          // Если это уже полный URL
+          if (/^https?:\/\//i.test(v)) return v; 
+          // Если это домен без протокола
+          if (v.includes('.') && !v.includes(' ') && !v.startsWith('www.')) {
+            return 'https://' + v; 
+          }
+          // Если начинается с www., добавляем https://
+          if (v.startsWith('www.')) {
+            return 'https://' + v;
+          }
+          // В остальных случаях - поисковый запрос через DuckDuckGo (лучше работает в iframe)
+          return 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(v); 
+        };
+        
+        let loadTimeout = null;
+        
+        const navigate = () => { 
+          const u = toUrl(urlInput.value); 
+          if (u) {
+            // Очищаем предыдущий таймаут
+            if (loadTimeout) {
+              clearTimeout(loadTimeout);
+              loadTimeout = null;
+            }
+            
+            // Удаляем предыдущее сообщение об ошибке
+            if (currentErrorMsg) {
+              currentErrorMsg.remove();
+              currentErrorMsg = null;
+            }
+            
+            // Показываем индикатор загрузки
+            frame.style.opacity = '0.6';
+            frame.style.transition = 'opacity 0.3s';
+            
+            try {
+              // Устанавливаем обработчик загрузки перед изменением src
+              const onLoadSuccess = () => {
+                frame.style.opacity = '1';
+                if (loadTimeout) {
+                  clearTimeout(loadTimeout);
+                  loadTimeout = null;
+                }
+                if (currentErrorMsg) {
+                  currentErrorMsg.remove();
+                  currentErrorMsg = null;
+                }
+              };
+              
+              // Устанавливаем обработчик ошибки
+              const onLoadError = () => {
+                frame.style.opacity = '1';
+                if (loadTimeout) {
+                  clearTimeout(loadTimeout);
+                  loadTimeout = null;
+                }
+                // Не показываем ошибку сразу, так как многие сайты блокируют iframe,
+                // но страница все равно может быть видна пользователю
+                setTimeout(() => {
+                  // Проверяем, действительно ли произошла ошибка
+                  try {
+                    // Если мы не можем получить доступ к содержимому из-за CORS,
+                    // это не обязательно ошибка - страница может быть загружена
+                    const testAccess = frame.contentWindow;
+                    if (!testAccess) {
+                      showError();
+                    }
+                  } catch (e) {
+                    // CORS блокирует доступ, но страница может быть загружена
+                    // Не показываем ошибку в этом случае
+                  }
+                }, 2000);
+              };
+              
+              // Удаляем старые обработчики
+              frame.onload = null;
+              frame.onerror = null;
+              
+              // Устанавливаем новые обработчики
+              frame.onload = onLoadSuccess;
+              frame.onerror = onLoadError;
+              
+              // Загружаем страницу
+              frame.src = u;
+              
+            } catch (e) {
+              console.error('Navigation error:', e);
+              frame.style.opacity = '1';
+              showError();
+            }
+          }
+        };
+        
+        const showError = () => {
+          if (!currentErrorMsg) {
+            currentErrorMsg = el('div', { 
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              padding: '30px', 
+              textAlign: 'center', 
+              color: '#ff6b6b',
+              fontSize: '16px',
+              background: 'rgba(0,0,0,0.9)',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,107,107,0.3)',
+              zIndex: '1000',
+              maxWidth: '500px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+            });
+            const errorText = el('div', { marginBottom: '20px', lineHeight: '1.6' }, 
+              window.translate 
+                ? 'Страница не загрузилась. Некоторые сайты блокируют встраивание в iframe по соображениям безопасности. Вы можете открыть её в новой вкладке.' 
+                : 'Page failed to load. Some sites block iframe embedding for security reasons. You can open it in a new tab.'
+            );
+            const buttonContainer = el('div', { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' });
+            const openButton = btn(
+              window.translate ? 'Открыть в новой вкладке' : 'Open in new tab',
+              {
+                padding: '12px 24px',
+                cursor: 'pointer',
+                background: 'rgba(42, 107, 255, 0.9)',
+                border: '1px solid rgba(42, 107, 255, 0.3)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'all 0.2s'
+              }
+            );
+            openButton.addEventListener('mouseenter', () => {
+              openButton.style.background = 'rgba(42, 107, 255, 1)';
+            });
+            openButton.addEventListener('mouseleave', () => {
+              openButton.style.background = 'rgba(42, 107, 255, 0.9)';
+            });
+            openButton.addEventListener('click', () => {
+              const u = toUrl(urlInput.value);
+              if (u) {
+                window.open(u, '_blank');
+              }
+            });
+            const retryButton = btn(
+              window.translate ? 'Повторить' : 'Retry',
+              {
+                padding: '12px 24px',
+                cursor: 'pointer',
+                background: 'rgba(255,255,255,0.15)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'all 0.2s'
+              }
+            );
+            retryButton.addEventListener('mouseenter', () => {
+              retryButton.style.background = 'rgba(255,255,255,0.25)';
+            });
+            retryButton.addEventListener('mouseleave', () => {
+              retryButton.style.background = 'rgba(255,255,255,0.15)';
+            });
+            retryButton.addEventListener('click', () => {
+              if (currentErrorMsg) {
+                currentErrorMsg.remove();
+                currentErrorMsg = null;
+              }
+              navigate();
+            });
+            buttonContainer.appendChild(openButton);
+            buttonContainer.appendChild(retryButton);
+            currentErrorMsg.appendChild(errorText);
+            currentErrorMsg.appendChild(buttonContainer);
+            frameContainer.appendChild(currentErrorMsg);
+          }
+        };
+        
+        frame.addEventListener('error', (e) => {
+          console.error('Iframe load error:', e);
+          frame.style.opacity = '1';
+          showError();
+        });
+        
+        urlInput.addEventListener('keydown', e => { 
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            navigate(); 
+          }
+        });
         go.addEventListener('click', navigate);
-        bar.append(urlInput, go); wrap.append(bar, frame); return wrap;
+        
+        urlInput.style.width = '100%';
+        urlInput.style.minWidth = '300px';
+        
+        bar.append(urlInput, go); 
+        frameContainer.appendChild(frame);
+        wrap.append(bar, frameContainer);
+        
+        setTimeout(() => navigate(), 100);
+        
+        return wrap;
       },
       size: { width: 1800, height: 1100 }
     },
