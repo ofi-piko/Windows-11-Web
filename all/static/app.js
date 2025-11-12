@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
         go.addEventListener('click', navigate);
         bar.append(urlInput, go); wrap.append(bar, frame); return wrap;
       },
-      size: { width: 1200, height: 800 }
+      size: { width: 1800, height: 1100 }
     },
     vscode: {
       title: 'VS Code',
