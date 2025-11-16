@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Windows 11 (Web) - Welcome</title>
+    <link rel="icon" href="./all/ru/static/favicon.png" />
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+    
+    <div id="welcome-screen" class="welcЩome-screen">
+        <div class="welcome-container">
+            <div class="welcome-step" id="welcome-step-1">
+                <div class="welcome-text">Hello, what should I call you?</div>
+                <input type="text" id="welcome-name-input" class="welcome-input" placeholder="Enter your name" />
+                <button class="welcome-btn" onclick="welcomeNext()">Next →</button>
+            </div>
+        <br>
+        <br>
+        <br>
+            <div class="welcome-step hidden" id="welcome-step-2">
+                <div class="welcome-text" id="welcome-greeting">hello, ${name}</div>
+                <div class="welcome-text">select language</div>
+                <div class="welcome-lang-buttons">
+                    <button class="welcome-lang-btn" id="welcome-lang-ru" onclick="selectLanguage('ru')">ru</button>
+                    <button class="welcome-lang-btn" id="welcome-lang-eng" onclick="selectLanguage('eng')">eng</button>
+                </div>
+            </div>
+            <div class="welcome-step hidden" id="welcome-step-3">
+                <div class="welcome-text-large">Welcome</div>
+                <div class="welcome-text-large">to Windows Web</div>
+                <button class="welcome-btn" onclick="welcomeFinish()">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./welcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Windows 11 (Web)</title>
+    <link rel="icon" href="./static/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./static/styles.css" />
+</head>
+
+<body>
+    <div id="welcome-screen" class="welcome-screen hidden"
+        style="display: none; pointer-events: none; visibility: hidden;">
+        <div class="welcome-container">
+            <div class="welcome-step" id="welcome-step-1">
+                <div class="welcome-text">Hello, what should I call you?</div>
+                <input type="text" id="welcome-name-input" class="welcome-input" placeholder="Enter your name" />
+                <button class="welcome-btn" onclick="welcomeNext()">Next →</button>
+            </div>
+
+            <div class="welcome-step hidden" id="welcome-step-2">
+                <div class="welcome-text" id="welcome-greeting">hello, ${name}</div>
+                <div class="welcome-text">select language</div>
+                <div class="welcome-lang-buttons">
+                    <button class="welcome-lang-btn" id="welcome-lang-ru" onclick="selectLanguage('ru')">ru</button>
+                    <button class="welcome-lang-btn" id="welcome-lang-eng" onclick="selectLanguage('eng')">eng</button>
+                </div>
+            </div>
+
+            <div class="welcome-step hidden" id="welcome-step-3">
+                <div class="welcome-text-large">Welcome</div>
+                <div class="welcome-text-large">to Windows Web</div>
+                <button class="welcome-btn" onclick="welcomeFinish()">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop" class="desktop">
+        <div class="desktop-wallpaper"></div>
+
+        <div class="desktop-icons">
+            <button class="desktop-icon" data-launch="explorer">
+                <img src="./static/icons/folder.svg" alt="Explorer" />
+                <span>Проводник</span>
+            </button>
+            <button class="desktop-icon" data-launch="notepad">
+                <img src="./static/icons/note.svg" alt="Notepad" />
+                <span>Блокнот</span>
+            </button>
+            <button class="desktop-icon" data-launch="calculator">
+                <img src="./static/icons/calculator.svg" alt="Calculator" />
+                <span>Калькулятор</span>
+            </button>
+            <button class="desktop-icon" data-launch="paint">
+                <img src="./static/icons/paint.svg" alt="Paint" />
+                <span>краска</span>
+            </button>
+            <button class="desktop-icon" data-launch="browser">
+                <img src="./static/icons/browser.png" alt="Browser" />
+                <span>Браузер</span>
+            </button>
+            <button class="desktop-icon" data-launch="vscode">
+                <img src="./static/icons/VsCode.png" alt="VS Code" />
+                <span>VS Code</span>
+            </button>
+            <button class="desktop-icon" data-launch="music">
+                <img src="./static/icons/music.svg" alt="Music" />
+                <span>Музыка</span>
+            </button>
+            <button class="desktop-icon" data-launch="settings">
+                <img src="./static/icons/settings.svg" alt="Settings" />
+                <span>Параметры</span>
+            </button>
+            <button class="desktop-icon" data-launch="games">
+                <img src="./static/icons/game_icon_176683.png" alt="Games" />
+                <span>Игры</span>
+            </button>
+            <button class="desktop-icon" data-launch="editor">
+                <img src="./static/icons/slice.jpg" alt="Games" />
+                <span>Фото Эдитор</span>
+            </button>
+        </div>
+
+        <div id="windows-root" class="windows-root"></div>
+
+        <div id="start-menu" class="start-menu hidden" aria-hidden="true">
+            <div class="start-search">
+                <input type="text" placeholder="Search apps, settings, and files" />
+            </div>
+            <div class="start-apps">
+                <button class="start-app" data-launch="explorer">
+                    <img src="./static/icons/folder.svg" alt="Explorer" />
+                    <span>Проводник</span>
+                </button>
+                <button class="start-app" data-launch="notepad">
+                    <img src="./static/icons/note.svg" alt="Notepad" />
+                    <span>Блокнот</span>
+                </button>
+                <button class="start-app" data-launch="calculator">
+                    <img src="./static/icons/calculator.svg" alt="Calculator" />
+                    <span>Калькулятор</span>
+                </button>
+                <button class="start-app" data-launch="paint">
+                    <img src="./static/icons/paint.svg" alt="Paint" />
+                    <span>краска</span>
+                </button>
+                <button class="start-app" data-launch="browser">
+                    <img src="./static/icons/browser.png" alt="Browser" />
+                    <span>Браузер</span>
+                </button>
+                <button class="start-app" data-launch="vscode">
+                    <img src="./static/icons/VsCode.png" alt="VS Code" />
+                    <span>VS Code</span>
+                </button>
+                <button class="start-app" data-launch="music">
+                    <img src="./static/icons/music.svg" alt="Music" />
+                    <span>Музыка</span>
+                </button>
+                <button class="start-app" data-launch="settings">
+                    <img src="./static/icons/settings.svg" alt="Settings" />
+                    <span>Параметры</span>
+                </button>
+                <button class="start-app" data-launch="games">
+                    <img src="./static/icons/game_icon_176683.png" alt="Games" />
+                    <span>Игры</span>
+                </button>
+                <button class="start-app" data-launch="photo_editor">
+                    <img src="./static/icons/slice.jpg" alt="Games" />
+                    <span>Фото Редактор</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="taskbar" role="toolbar">
+            <div class="taskbar-left">
+                  <div class="windows_logo" role="button" tabindex="0" aria-label="Start menu">
+                    <img src="./static/icons/windows_log.png" alt="">
+                  </div>
+            </div>
+            <div id="taskbar-center" class="taskbar-center" aria-live="polite">
+                <div id="taskbar-clock" class="taskbar-clock"></div>
+            </div>
+            <div class="taskbar-right"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.47.0/min/vs/loader.min.js"></script>
+    <script>
+        window.require && window.require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.47.0/min/vs' } });
+    </script>
+    <script src="./static/app.js"></script>
+</body>
+
+</html>
