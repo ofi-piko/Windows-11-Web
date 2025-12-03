@@ -1,231 +1,93 @@
-
 let welcomeStep = 1;
 let userName = '';
 let userLanguage = 'ru';
-let userAnswers = {};
+
+const FIXED_KEY = "1234-5678-9101"; // единственный рабочий ключ
 
 function getUserData() {
   try {
-    const userData = localStorage.getItem('user');
-    const jsonData = localStorage.getItem('user_json');
-    if (userData) {
-      return JSON.parse(userData);
-    }
-    if (jsonData) {
-      return JSON.parse(jsonData);
-    }
+    const data = localStorage.getItem('user');
+    if (data) return JSON.parse(data);
   } catch (e) {
-    console.error('Error loading user data:', e);
+    console.error("load error:", e);
   }
   return null;
 }
 
-function saveUserData(name, language) {
-  const userData = {
-    name: name,
-    language: language,
-    createdAt: new Date().toISOString()
-  };
-  localStorage.setItem('user', JSON.stringify(userData));
-  localStorage.setItem('user_json', JSON.stringify(userData));
-  return userData;
-}
-
-function showWelcomeScreen() {
-  const welcomeScreen = document.getElementById('welcome-screen');
-  if (welcomeScreen) {
-    welcomeScreen.classList.remove('hidden');
-  }
-}
-
-function hideWelcomeScreen() {
-  const welcomeScreen = document.getElementById('welcome-screen');
-  if (welcomeScreen) {
-    welcomeScreen.classList.add('hidden');
-  }
-}
-
 function showStep(stepNum) {
-  // Скрыть все шаги (1, 2, 3, 99)
   for (let i = 1; i <= 3; i++) {
     const step = document.getElementById(`welcome-step-${i}`);
-    if (step) {
-      if (i === stepNum) {
-        step.classList.remove('hidden');
-      } else {
-        step.classList.add('hidden');
-      }
-    }
+    if (step) step.classList.add("hidden");
   }
-  // Шаг активации
-  const activationStep = document.getElementById('welcome-step-99');
-  if (activationStep) {
-    if (stepNum === 99) {
-      activationStep.classList.remove('hidden');
-    } else {
-      activationStep.classList.add('hidden');
-    }
-  }
+  const current = document.getElementById(`welcome-step-${stepNum}`);
+  if (current) current.classList.remove("hidden");
 }
 
-
-let isAdmin = false;
-let activationPassed = false;
-let activationKey = '';
-
 window.welcomeNext = function () {
-  if (welcomeStep === 1) {
-    const nameInput = document.getElementById('welcome-name-input');
-    if (nameInput && nameInput.value.trim()) {
-      userName = nameInput.value.trim();
-      // Проверка на "admin"
-      if (userName.toLowerCase() === 'admin') {
-        isAdmin = true;
-        welcomeStep = 2;
-        showStep(2);
-        const greeting = document.getElementById('welcome-greeting');
-        if (greeting) {
-          greeting.textContent = `hello, ${userName} (админ права выданы)`;
-        }
-      } else if (userName.toLowerCase().includes('admin')) {
-        // Если имя похоже на admin, но не совпадает
-        console.log('Шаг активации: имя содержит admin, но не равно admin');
-        welcomeStep = 99; // специальный шаг для активации
-        showStep(99);
-      } else {
-        welcomeStep = 2;
-        showStep(2);
-        const greeting = document.getElementById('welcome-greeting');
-        if (greeting) {
-          greeting.textContent = `hello, ${userName}`;
-        }
-      }
-    } else {
-      alert('Please enter your name');
-    }
+  const input = document.getElementById("welcome-name-input");
+  if (!input || !input.value.trim()) {
+    alert("Введите имя");
+    return;
   }
+
+  userName = input.value.trim();
+  welcomeStep = 2;
+  showStep(2);
 };
 
 window.activationSubmit = function () {
-  const keyInput = document.getElementById('activation-key-input');
-  const errorMsgId = 'activation-error-msg';
+  const keyInput = document.getElementById("activation-key-input");
+  if (!keyInput) return;
 
-  let errorMsg = document.getElementById(errorMsgId);
+  const entered = keyInput.value.trim();
+
+  let errorMsg = document.getElementById("activation-error-msg");
   if (!errorMsg) {
-    errorMsg = document.createElement('div');
-    errorMsg.id = errorMsgId;
-    errorMsg.style.color = 'red';
-    errorMsg.style.marginTop = '10px';
+    errorMsg = document.createElement("div");
+    errorMsg.id = "activation-error-msg";
+    errorMsg.style.color = "red";
+    errorMsg.style.marginTop = "10px";
     keyInput.parentNode.appendChild(errorMsg);
   }
 
-  const enteredKey = keyInput?.value.trim();
-  if (!enteredKey) {
-    errorMsg.textContent = 'Введите ключ!';
+  if (!entered) {
+    errorMsg.textContent = "Введите ключ!";
     return;
   }
 
-  let matched = false;
-  let matchedData = null;
-
-  for (let i = 0; i < localStorage.length; i++) {
-    const keyName = localStorage.key(i);
-    const rawValue = localStorage.getItem(keyName);
-
-    try {
-      const parsed = JSON.parse(rawValue);
-
-      if (parsed && typeof parsed === 'object') {
-        const codeMatch = parsed.code && parsed.code === enteredKey;
-        const createdMatch = parsed.createdAt && String(parsed.createdAt) === enteredKey;
-
-        if (codeMatch || createdMatch) {
-          matched = true;
-          matchedData = parsed;
-          break;
-        }
-      }
-
-    } catch (e) {
-    }
-  }
-
-  if (!matched) {
-    errorMsg.textContent = 'Ключ неверный!';
-    errorMsg.textContent = alert('Мошенник');
+  if (entered !== FIXED_KEY) {
+    errorMsg.textContent = "Неверный ключ!";
     return;
   }
 
-  const userData = {
-    name: userName,
-    language: userLanguage,
-    activationKey: enteredKey,
-    isAdmin: true,
-    createdAt: new Date().toISOString()
-  };
+  errorMsg.textContent = "";
 
-  localStorage.setItem('user', JSON.stringify(userData));
-  localStorage.setItem('user_json', JSON.stringify(userData));
-
-  errorMsg.textContent = '';
-  activationPassed = true;
-  isAdmin = true;
+  localStorage.setItem(
+    "user",
+    JSON.stringify({
+      name: userName,
+      language: userLanguage,
+      activationKey: FIXED_KEY,
+      isAdmin: true,
+      createdAt: new Date().toISOString()
+    })
+  );
 
   welcomeStep = 3;
   showStep(3);
 
-  const greeting = document.getElementById('welcome-greeting');
-  if (greeting) {
-    greeting.textContent = `hello, ${userName} (админ права выданы)`;
-  }
-};
-
-
-window.selectLanguage = function (lang) {
-  userLanguage = 'ru';
-  setTimeout(() => {
-    welcomeStep = 3;
-    showStep(3);
-  }, 300);
+  const greeting = document.getElementById("welcome-greeting");
+  if (greeting) greeting.textContent = `Welcome, ${userName}`;
 };
 
 window.welcomeFinish = function () {
-  const userData = {
-    name: userName,
-    language: userLanguage,
-    activationKey: activationKey || '',
-    isAdmin: isAdmin,
-    createdAt: new Date().toISOString()
-  };
-  localStorage.setItem('user', JSON.stringify(userData));
-  localStorage.setItem('user_json', JSON.stringify(userData));
-  window.location.href = './all/ru/index.html';
+  window.location.href = "./all/ru/index.html";
 };
 
-function updateScreenClass() {
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  
-  document.body.classList.remove('screen-mobile', 'screen-tablet', 'screen-desktop');
-  
-  if (screenWidth < 768) {
-    document.body.classList.add('screen-mobile');
-  } else if (screenWidth >= 768 && screenWidth < 1024) {
-    document.body.classList.add('screen-tablet');
-  } else {
-    document.body.classList.add('screen-desktop');
-  }
-}
-
-updateScreenClass();
-
-window.addEventListener('resize', updateScreenClass);
-
-const existingUserData = getUserData();
-if (existingUserData && existingUserData.name) {
-  window.location.href = './all/ru/index.html';
+// автозагрузка, если юзер уже активирован
+const saved = getUserData();
+if (saved && saved.name) {
+  window.location.href = "./all/ru/index.html";
 } else {
-  showWelcomeScreen();
   showStep(1);
 }
-
