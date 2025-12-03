@@ -250,9 +250,8 @@ textarea {
   align-items: center;
   justify-content: space-between;
 
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.148);
   backdrop-filter: blur(48px) saturate(1.4);
-  -webkit-backdrop-filter: blur(0px) saturate(1.4);
 
   border-radius: 15px;
   padding: 0 12px;
@@ -409,7 +408,6 @@ textarea {
 #taskbar {
   width: min-content;
   min-width: 50px;
-  top: 93%;
 }
 
 #taskbar-recent::-webkit-scrollbar {
@@ -443,12 +441,14 @@ textarea {
   transition: opacity .2s ease, transform .2s ease;
   overflow-y: auto;
   left: 50%;
-  top: 50%;
+  top: 0%;
+
 }
 
 #start-menu {
   position: absolute;
-  top: 35%;
+  top: 50%;
+  color: #c0c0c0;
 }
 
 .start-search {
