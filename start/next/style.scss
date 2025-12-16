@@ -56,18 +56,12 @@
         outline: #2bbee7 auto 3px;
     }
 
-    // only show the invalid input if we aren't focusing on the element
-    // and there is no placeholder
     &:invalid:not(:focus):not(:placeholder-shown) {
         border-color: red;
-        //border-bottom: none;
-        // box-shadow: 0 1px 3px rgba(#f00, 3%) inset;
-
         &+.Control-label {
             color: red;
 
             &+.Control-requirements {
-                // display: block;
                 max-height: 100px;
                 padding: 9px;
                 border: 1px solid red;
@@ -103,7 +97,7 @@
 
 .Control-label--password {
     order: -1;
-    margin-bottom: -32px; // pull up the offset of the hide password button
+    margin-bottom: -32px; 
 }
 
 .Control-label--showPassword {
@@ -154,7 +148,6 @@
     }
 }
 
-//SVG
 .Button-spinner {
     position: absolute;
     top: 50%;
@@ -164,17 +157,15 @@
     opacity: 0;
 }
 
-// show password checkbox hack
 .show-password {
     display: none;
 
     &:checked {
-        // background: purple;
 
         &~.ControlInput--password {
             text-security: disc;
             -webkit-text-security: disc;
-            -moz-text-security: disc; // doesn't work :'|
+            -moz-text-security: disc;
         }
 
         &~.Control-label--showPassword {
@@ -191,7 +182,6 @@
     }
 }
 
-// default eye position
 .svg-toggle-password {
     fill: rgba(#008ed6, 50%);
 
@@ -260,4 +250,5 @@ body {
 *:before,
 *:after {
     box-sizing: inherit;
+
 }
