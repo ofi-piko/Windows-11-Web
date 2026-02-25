@@ -1,0 +1,97 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(90deg, #2c2c2c, #fff);
+}
+
+#getCodeContent {
+    position: relative;
+    display: block;
+    padding: 250px 550px;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#getCodeContent::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url(./wallpapers/wallpaper1.jpg) center / cover no-repeat;
+    filter: blur(16px);
+    transform: scale(1.05);
+    z-index: -1;
+}
+
+#codeText {
+    color: #ffffff8f;
+    font-size: 25px;
+    cursor: s-resize;
+    padding-top: -50px;
+}
+
+#codeContent,
+.getCode {
+    padding-top: 5px;
+    display: flex;
+    justify-self: center;
+    font-size: 25px;
+    color: #ffffff8f;
+}
+
+.getCode {
+    gap: 5px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #ffffff8f;
+}
+
+
+
+h5 {
+    color: #ffffff8f;
+    display: flex;
+    cursor: no-drop;
+    justify-self: center;
+    background-color: rgb(44, 44, 44, 0.200);
+    border: none;
+    padding: 15px 15px;
+    border-radius: 15px;
+    filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
+    transition: 0.2s;
+}
+
+h5:hover {
+    background-color: rgba(36, 36, 36, 0.561);
+    transform: scale(105%);
+    transition: 0.2s;
+}
+
+button {
+    color: #ffffff8f;
+    background-color: rgb(44, 44, 44, 0.200);
+    border: none;
+    padding: 15px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(105%);
+    transition: 0.2s;
+}
+
+button:active {
+    background-color: rgba(255, 0, 0, 0.2);
+    transform: scale(105%);
+    transition: 0.2s;
+}
