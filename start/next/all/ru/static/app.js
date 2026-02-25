@@ -2776,7 +2776,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     browser: {
       title: 'Browser',
-      icon: './static/icons/browser.',
+      icon: './static/icons/browser.svg',
       content: () => {
         const wrap = el('div', { display: 'grid', gridTemplateRows: 'auto 1fr', gap: '12px', height: '100%' });
 
@@ -9654,4 +9654,3 @@ window.loadWallpaper = loadWallpaper;
 window.handleLogin = handleLogin;
 window.launchApp = launchApp;
 window.createAppWindow = createAppWindow;
-
