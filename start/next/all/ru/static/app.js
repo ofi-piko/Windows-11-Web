@@ -315,9 +315,6 @@ class SettingsManager {
       return {};
     }
   }
-
-
-
   saveSettings(next) {
     const current = this.loadSettings();
     const merged = { ...current, ...next };
@@ -1163,7 +1160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   } catch (e) { }
-  
+
   const appRegistry = {
     explorer: {
       title: 'File Explorer',
@@ -3642,244 +3639,244 @@ document.addEventListener('DOMContentLoaded', () => {
       size: { width: 400, height: 700 }
     },
     vscode: {
-  title: 'VS Code',
-  icon: './static/icons/termine.svg',
-  content: () => {
-    const wrap = el('div', { display: 'grid', gridTemplateRows: 'auto 1fr 180px', gap: '8px', height: '100%' });
-    wrap.className = 'vscode-wrap';
+      title: 'VS Code',
+      icon: './static/icons/termine.svg',
+      content: () => {
+        const wrap = el('div', { display: 'grid', gridTemplateRows: 'auto 1fr 180px', gap: '8px', height: '100%' });
+        wrap.className = 'vscode-wrap';
 
-    const toolbar = el('div', { display: 'flex', gap: '8px', alignItems: 'center' });
-    toolbar.className = 'vscode-toolbar';
+        const toolbar = el('div', { display: 'flex', gap: '8px', alignItems: 'center' });
+        toolbar.className = 'vscode-toolbar';
 
-    const langSelect = el('select', { height: '32px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.25)', color: '#e8e8ef', padding: '0 8px' });
-    langSelect.className = 'vscode-lang';
+        const langSelect = el('select', { height: '32px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.25)', color: '#e8e8ef', padding: '0 8px' });
+        langSelect.className = 'vscode-lang';
 
-    langSelect.innerHTML = [
-      { v: 'javascript', t: 'JavaScript' },
-      { v: 'typescript', t: 'TypeScript' },
-      { v: 'html', t: 'HTML' },
-      { v: 'css', t: 'CSS' },
-      { v: 'json', t: 'JSON' },
-      { v: 'c', t: 'C' },
-      { v: 'cpp', t: 'C++' },
-      { v: 'python', t: 'Python' },
-      { v: 'java', t: 'Java' },
-      { v: 'csharp', t: 'C#' },
-      { v: 'go', t: 'Go' },
-      { v: 'rust', t: 'Rust' },
-      { v: 'kotlin', t: 'Kotlin' },
-      { v: 'swift', t: 'Swift' },
-      { v: 'php', t: 'PHP' },
-      { v: 'ruby', t: 'Ruby' },
-      { v: 'scala', t: 'Scala' },
-      { v: 'perl', t: 'Perl' },
-      { v: 'haskell', t: 'Haskell' },
-      { v: 'lua', t: 'Lua' },
-      { v: 'r', t: 'R' },
-      { v: 'dart', t: 'Dart' },
-      { v: 'elixir', t: 'Elixir' },
-      { v: 'clojure', t: 'Clojure' },
-      { v: 'fsharp', t: 'F#' },
-      { v: 'shell', t: 'Shell' },
-      { v: 'objectivec', t: 'Objective-C' },
-      { v: 'matlab', t: 'MATLAB' },
-      { v: 'groovy', t: 'Groovy' },
-      { v: 'fortran', t: 'Fortran' },
-      { v: 'assembly', t: 'Assembly' },
-      { v: 'vbnet', t: 'VB.NET' },
-      { v: 'sql', t: 'SQL' },
-      { v: 'prolog', t: 'Prolog' },
-      { v: 'pascal', t: 'Pascal' },
-      { v: 'smalltalk', t: 'Smalltalk' }
-    ].map(o => `<option value="${o.v}">${o.t}</option>`).join('');
+        langSelect.innerHTML = [
+          { v: 'javascript', t: 'JavaScript' },
+          { v: 'typescript', t: 'TypeScript' },
+          { v: 'html', t: 'HTML' },
+          { v: 'css', t: 'CSS' },
+          { v: 'json', t: 'JSON' },
+          { v: 'c', t: 'C' },
+          { v: 'cpp', t: 'C++' },
+          { v: 'python', t: 'Python' },
+          { v: 'java', t: 'Java' },
+          { v: 'csharp', t: 'C#' },
+          { v: 'go', t: 'Go' },
+          { v: 'rust', t: 'Rust' },
+          { v: 'kotlin', t: 'Kotlin' },
+          { v: 'swift', t: 'Swift' },
+          { v: 'php', t: 'PHP' },
+          { v: 'ruby', t: 'Ruby' },
+          { v: 'scala', t: 'Scala' },
+          { v: 'perl', t: 'Perl' },
+          { v: 'haskell', t: 'Haskell' },
+          { v: 'lua', t: 'Lua' },
+          { v: 'r', t: 'R' },
+          { v: 'dart', t: 'Dart' },
+          { v: 'elixir', t: 'Elixir' },
+          { v: 'clojure', t: 'Clojure' },
+          { v: 'fsharp', t: 'F#' },
+          { v: 'shell', t: 'Shell' },
+          { v: 'objectivec', t: 'Objective-C' },
+          { v: 'matlab', t: 'MATLAB' },
+          { v: 'groovy', t: 'Groovy' },
+          { v: 'fortran', t: 'Fortran' },
+          { v: 'assembly', t: 'Assembly' },
+          { v: 'vbnet', t: 'VB.NET' },
+          { v: 'sql', t: 'SQL' },
+          { v: 'prolog', t: 'Prolog' },
+          { v: 'pascal', t: 'Pascal' },
+          { v: 'smalltalk', t: 'Smalltalk' }
+        ].map(o => `<option value="${o.v}">${o.t}</option>`).join('');
 
-    langSelect.value = 'javascript';
+        langSelect.value = 'javascript';
 
-    const languageExamples = {
-      javascript: `function hello() {\n  console.log("hello my user");\n}\nhello();`,
-      typescript: `function greet(name: string): void {\n  console.log(\`Hello, \${name}!\`);\n}\ngreet("TypeScript");`,
-      html: `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n    <style>\n        body { background: #1e1e2f; color: #e8e8ef; }\n    </style>\n</head>\n<body>\n    <h1>Hello, HTML + CSS + JS!</h1>\n    <script>\n        console.log("JavaScript работает внутри HTML");\n    </script>\n</body>\n</html>`,
-      css: `/* CSS сам по себе не выполняется, встройте его в HTML */\nbody {\n  background-color: #1e1e2f;\n  color: #e8e8ef;\n  font-family: sans-serif;\n}\nh1 {\n  text-align: center;\n  color: #bb9af7;\n}`,
-      json: `{\n  "name": "vscode-demo",\n  "version": "1.0.0"\n}`,
-      c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, C!\\n");\n    return 0;\n}`,
-      cpp: `#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++!" << std::endl;\n    return 0;\n}`,
-      python: `def hello():\n    print("Hello, Python!")\n\nhello()`,
-      java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, Java!");\n    }\n}`,
-      csharp: `using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine("Hello, C#!");\n    }\n}`,
-      go: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, Go!")\n}`,
-      rust: `fn main() {\n    println!("Hello, Rust!");\n}`,
-      kotlin: `fun main() {\n    println("Hello, Kotlin!")\n}`,
-      swift: `print("Hello, Swift!")`,
-      php: `<?php\necho "Hello, PHP!\\n";\n?>`,
-      ruby: `puts "Hello, Ruby!"`,
-      scala: `object Hello {\n  def main(args: Array[String]): Unit = {\n    println("Hello, Scala!")\n  }\n}`,
-      perl: `print "Hello, Perl!\\n";`,
-      haskell: `main = putStrLn "Hello, Haskell!"`,
-      lua: `print("Hello, Lua!")`,
-      r: `cat("Hello, R!\\n")`,
-      dart: `void main() {\n  print('Hello, Dart!');\n}`,
-      elixir: `IO.puts "Hello, Elixir!"`,
-      clojure: `(println "Hello, Clojure!")`,
-      fsharp: `printfn "Hello, F#!"`,
-      shell: `#!/bin/bash\necho "Hello, Shell!"`,
-      objectivec: `#import <Foundation/Foundation.h>\n\nint main() {\n    @autoreleasepool {\n        NSLog(@"Hello, Objective-C!");\n    }\n    return 0;\n}`,
-      matlab: `disp('Hello, MATLAB!');`,
-      groovy: `println 'Hello, Groovy!'`,
-      fortran: `program hello\n  print *, 'Hello, Fortran!'\nend program hello`,
-      assembly: `; Hello, World! for x86-64 Linux\nsection .data\n    msg db 'Hello, Assembly!',0xa\n    len equ $ - msg\nsection .text\n    global _start\n_start:\n    mov rax, 1\n    mov rdi, 1\n    mov rsi, msg\n    mov rdx, len\n    syscall\n    mov rax, 60\n    xor rdi, rdi\n    syscall`,
-      vbnet: `Imports System\n\nModule Program\n    Sub Main()\n        Console.WriteLine("Hello, VB.NET!")\n    End Sub\nEnd Module`,
-      sql: `SELECT 'Hello, SQL!' AS greeting;`,
-      prolog: `:- initialization(main).\nmain :- write('Hello, Prolog!'), nl.`,
-      pascal: `program Hello;\nbegin\n  writeln('Hello, Pascal!');\nend.`,
-      smalltalk: `Transcript show: 'Hello, Smalltalk!'; cr.`
-    };
+        const languageExamples = {
+          javascript: `function hello() {\n  console.log("hello my user");\n}\nhello();`,
+          typescript: `function greet(name: string): void {\n  console.log(\`Hello, \${name}!\`);\n}\ngreet("TypeScript");`,
+          html: `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n    <style>\n        body { background: #1e1e2f; color: #e8e8ef; }\n    </style>\n</head>\n<body>\n    <h1>Hello, HTML + CSS + JS!</h1>\n    <script>\n        console.log("JavaScript работает внутри HTML");\n    </script>\n</body>\n</html>`,
+          css: `/* CSS сам по себе не выполняется, встройте его в HTML */\nbody {\n  background-color: #1e1e2f;\n  color: #e8e8ef;\n  font-family: sans-serif;\n}\nh1 {\n  text-align: center;\n  color: #bb9af7;\n}`,
+          json: `{\n  "name": "vscode-demo",\n  "version": "1.0.0"\n}`,
+          c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, C!\\n");\n    return 0;\n}`,
+          cpp: `#include <iostream>\n\nint main() {\n    std::cout << "Hello, C++!" << std::endl;\n    return 0;\n}`,
+          python: `def hello():\n    print("Hello, Python!")\n\nhello()`,
+          java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, Java!");\n    }\n}`,
+          csharp: `using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine("Hello, C#!");\n    }\n}`,
+          go: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, Go!")\n}`,
+          rust: `fn main() {\n    println!("Hello, Rust!");\n}`,
+          kotlin: `fun main() {\n    println("Hello, Kotlin!")\n}`,
+          swift: `print("Hello, Swift!")`,
+          php: `<?php\necho "Hello, PHP!\\n";\n?>`,
+          ruby: `puts "Hello, Ruby!"`,
+          scala: `object Hello {\n  def main(args: Array[String]): Unit = {\n    println("Hello, Scala!")\n  }\n}`,
+          perl: `print "Hello, Perl!\\n";`,
+          haskell: `main = putStrLn "Hello, Haskell!"`,
+          lua: `print("Hello, Lua!")`,
+          r: `cat("Hello, R!\\n")`,
+          dart: `void main() {\n  print('Hello, Dart!');\n}`,
+          elixir: `IO.puts "Hello, Elixir!"`,
+          clojure: `(println "Hello, Clojure!")`,
+          fsharp: `printfn "Hello, F#!"`,
+          shell: `#!/bin/bash\necho "Hello, Shell!"`,
+          objectivec: `#import <Foundation/Foundation.h>\n\nint main() {\n    @autoreleasepool {\n        NSLog(@"Hello, Objective-C!");\n    }\n    return 0;\n}`,
+          matlab: `disp('Hello, MATLAB!');`,
+          groovy: `println 'Hello, Groovy!'`,
+          fortran: `program hello\n  print *, 'Hello, Fortran!'\nend program hello`,
+          assembly: `; Hello, World! for x86-64 Linux\nsection .data\n    msg db 'Hello, Assembly!',0xa\n    len equ $ - msg\nsection .text\n    global _start\n_start:\n    mov rax, 1\n    mov rdi, 1\n    mov rsi, msg\n    mov rdx, len\n    syscall\n    mov rax, 60\n    xor rdi, rdi\n    syscall`,
+          vbnet: `Imports System\n\nModule Program\n    Sub Main()\n        Console.WriteLine("Hello, VB.NET!")\n    End Sub\nEnd Module`,
+          sql: `SELECT 'Hello, SQL!' AS greeting;`,
+          prolog: `:- initialization(main).\nmain :- write('Hello, Prolog!'), nl.`,
+          pascal: `program Hello;\nbegin\n  writeln('Hello, Pascal!');\nend.`,
+          smalltalk: `Transcript show: 'Hello, Smalltalk!'; cr.`
+        };
 
-    const fileStorage = new FileStorageManager();
-    const runBtn = btn('Run');
-    const clearBtn = btn('Clear Output');
-    const saveBtn = btn('Сохранить', { background: 'rgba(76, 175, 80, 0.8)', color: '#fff' });
-    const loadBtn = btn('Открыть', { background: 'rgba(100, 150, 255, 0.8)', color: '#fff' });
-    const exampleBtn = btn('Load Example', { background: 'rgba(255, 165, 0, 0.8)', color: '#fff' });
-    const fileNameInput = input('text', 'Имя файла...', { width: '150px', padding: '6px 8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px', color: '#fff' });
-    toolbar.append(langSelect, fileNameInput, saveBtn, loadBtn, exampleBtn, runBtn, clearBtn);
+        const fileStorage = new FileStorageManager();
+        const runBtn = btn('Run');
+        const clearBtn = btn('Clear Output');
+        const saveBtn = btn('Сохранить', { background: 'rgba(76, 175, 80, 0.8)', color: '#fff' });
+        const loadBtn = btn('Открыть', { background: 'rgba(100, 150, 255, 0.8)', color: '#fff' });
+        const exampleBtn = btn('Load Example', { background: 'rgba(255, 165, 0, 0.8)', color: '#fff' });
+        const fileNameInput = input('text', 'Имя файла...', { width: '150px', padding: '6px 8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px', color: '#fff' });
+        toolbar.append(langSelect, fileNameInput, saveBtn, loadBtn, exampleBtn, runBtn, clearBtn);
 
-    const host = el('div', { height: '100%', width: '100%', background: 'rgba(0,0,0,0.15)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px' });
-    host.className = 'monaco-host';
+        const host = el('div', { height: '100%', width: '100%', background: 'rgba(0,0,0,0.15)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px' });
+        host.className = 'monaco-host';
 
-    const output = el('div', { background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace', fontSize: '12px', color: '#e8e8ef', overflow: 'auto', whiteSpace: 'pre-wrap' });
-    output.className = 'output-panel';
+        const output = el('div', { background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace', fontSize: '12px', color: '#e8e8ef', overflow: 'auto', whiteSpace: 'pre-wrap' });
+        output.className = 'output-panel';
 
-    wrap.append(toolbar, host, output);
+        wrap.append(toolbar, host, output);
 
-    const writeOutput = (text, isError) => {
-      const line = el('div', isError ? { color: '#ff6b6b' } : {}, String(text));
-      output.appendChild(line);
-      output.scrollTop = output.scrollHeight;
-    };
+        const writeOutput = (text, isError) => {
+          const line = el('div', isError ? { color: '#ff6b6b' } : {}, String(text));
+          output.appendChild(line);
+          output.scrollTop = output.scrollHeight;
+        };
 
-    const clearOutput = () => output.innerHTML = '';
+        const clearOutput = () => output.innerHTML = '';
 
-    // Запуск JavaScript
-    const runJavascript = code => {
-      clearOutput();
-      const originalLog = console.log, originalError = console.error;
-      try {
-        console.log = (...args) => args.forEach(a => writeOutput(a));
-        console.error = (...args) => args.forEach(a => writeOutput(a, true));
-        let result;
-        try { result = Function(code)(); } catch (e) { writeOutput(e?.stack || String(e), true); }
-        if (result !== undefined) writeOutput(result);
-      } finally { console.log = originalLog; console.error = originalError; }
-    };
+        // Запуск JavaScript
+        const runJavascript = code => {
+          clearOutput();
+          const originalLog = console.log, originalError = console.error;
+          try {
+            console.log = (...args) => args.forEach(a => writeOutput(a));
+            console.error = (...args) => args.forEach(a => writeOutput(a, true));
+            let result;
+            try { result = Function(code)(); } catch (e) { writeOutput(e?.stack || String(e), true); }
+            if (result !== undefined) writeOutput(result);
+          } finally { console.log = originalLog; console.error = originalError; }
+        };
 
-    // Запуск HTML (поддерживает CSS и JS внутри)
-    const runHtml = code => {
-      clearOutput();
-      const iframe = el('iframe', { width: '100%', height: '100%', border: 'none' });
-      iframe.className = 'output-iframe';
-      output.appendChild(iframe);
-      try {
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (doc) { doc.open(); doc.write(code); doc.close(); }
-      } catch (e) { writeOutput(e?.stack || String(e), true); }
-    };
+        // Запуск HTML (поддерживает CSS и JS внутри)
+        const runHtml = code => {
+          clearOutput();
+          const iframe = el('iframe', { width: '100%', height: '100%', border: 'none' });
+          iframe.className = 'output-iframe';
+          output.appendChild(iframe);
+          try {
+            const doc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (doc) { doc.open(); doc.write(code); doc.close(); }
+          } catch (e) { writeOutput(e?.stack || String(e), true); }
+        };
 
-    // Запуск CSS (предлагаем использовать HTML)
-    const runCss = code => {
-      clearOutput();
-      writeOutput('CSS не может быть выполнен напрямую. Создайте HTML-документ и вставьте стили в тег <style>.', true);
-      writeOutput('Пример:\n<!DOCTYPE html>\n<html>\n<head>\n  <style>\n' + code + '\n  </style>\n</head>\n<body>\n  <h1>Тест</h1>\n</body>\n</html>');
-    };
+        // Запуск CSS (предлагаем использовать HTML)
+        const runCss = code => {
+          clearOutput();
+          writeOutput('CSS не может быть выполнен напрямую. Создайте HTML-документ и вставьте стили в тег <style>.', true);
+          writeOutput('Пример:\n<!DOCTYPE html>\n<html>\n<head>\n  <style>\n' + code + '\n  </style>\n</head>\n<body>\n  <h1>Тест</h1>\n</body>\n</html>');
+        };
 
-    // Обновлённая функция runCode
-    const runCode = (lang, code) => {
-      if (lang === 'javascript') runJavascript(code);
-      else if (lang === 'html') runHtml(code);
-      else if (lang === 'css') runCss(code);
-      else {
-        clearOutput();
-        writeOutput(`Запуск языка "${lang}" в браузере напрямую не поддерживается.`, true);
-        writeOutput(`Вы можете сохранить код (кнопка "Сохранить") и запустить его в соответствующей среде (Node.js, Python, компилятор и т.д.).`);
-        // Показываем пример кода (он уже в редакторе)
-      }
-    };
+        // Обновлённая функция runCode
+        const runCode = (lang, code) => {
+          if (lang === 'javascript') runJavascript(code);
+          else if (lang === 'html') runHtml(code);
+          else if (lang === 'css') runCss(code);
+          else {
+            clearOutput();
+            writeOutput(`Запуск языка "${lang}" в браузере напрямую не поддерживается.`, true);
+            writeOutput(`Вы можете сохранить код (кнопка "Сохранить") и запустить его в соответствующей среде (Node.js, Python, компилятор и т.д.).`);
+            // Показываем пример кода (он уже в редакторе)
+          }
+        };
 
-    const initMonaco = () => {
-      if (!window.require) return;
-      try {
-        window.require(['vs/editor/editor.main'], function () {
-          if (host._editor) return;
-          const initialCode = languageExamples['javascript'];
-          const model = monaco.editor.createModel(initialCode, 'javascript');
-          host._editor = monaco.editor.create(host, { model, theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false } });
+        const initMonaco = () => {
+          if (!window.require) return;
+          try {
+            window.require(['vs/editor/editor.main'], function () {
+              if (host._editor) return;
+              const initialCode = languageExamples['javascript'];
+              const model = monaco.editor.createModel(initialCode, 'javascript');
+              host._editor = monaco.editor.create(host, { model, theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false } });
 
-          runBtn.addEventListener('click', () => runCode(langSelect.value, host._editor.getValue()));
-          clearBtn.addEventListener('click', clearOutput);
+              runBtn.addEventListener('click', () => runCode(langSelect.value, host._editor.getValue()));
+              clearBtn.addEventListener('click', clearOutput);
 
-          saveBtn.addEventListener('click', () => {
-            const fileName = fileNameInput.value.trim() || `code.${langSelect.value}`;
-            const code = host._editor.getValue();
-            fileStorage.saveFile(fileName, code, 'code');
-            writeOutput(`Файл "${fileName}" сохранён!`);
-          });
+              saveBtn.addEventListener('click', () => {
+                const fileName = fileNameInput.value.trim() || `code.${langSelect.value}`;
+                const code = host._editor.getValue();
+                fileStorage.saveFile(fileName, code, 'code');
+                writeOutput(`Файл "${fileName}" сохранён!`);
+              });
 
-          loadBtn.addEventListener('click', () => {
-            const files = fileStorage.getAllFiles().filter(f => f.type === 'code' || f.type === 'text');
-            if (files.length === 0) {
-              writeOutput('Нет сохранённых файлов', true);
-              return;
-            }
-            const fileList = files.map((f, i) => `${i + 1}. ${f.name}`).join('\n');
-            const index = prompt(`Выберите файл (1-${files.length}):\n${fileList}`);
-            const fileIndex = parseInt(index) - 1;
-            if (fileIndex >= 0 && fileIndex < files.length) {
-              const file = files[fileIndex];
-              host._editor.setValue(file.data);
-              fileNameInput.value = file.name;
-              const ext = file.name.split('.').pop();
-              const langMap = { 'js': 'javascript', 'ts': 'typescript', 'html': 'html', 'css': 'css', 'json': 'json', 'py': 'python', 'java': 'java', 'cpp': 'cpp', 'c': 'c' };
-              if (langMap[ext]) langSelect.value = langMap[ext];
-              writeOutput(`Файл "${file.name}" загружен!`);
-            }
-          });
+              loadBtn.addEventListener('click', () => {
+                const files = fileStorage.getAllFiles().filter(f => f.type === 'code' || f.type === 'text');
+                if (files.length === 0) {
+                  writeOutput('Нет сохранённых файлов', true);
+                  return;
+                }
+                const fileList = files.map((f, i) => `${i + 1}. ${f.name}`).join('\n');
+                const index = prompt(`Выберите файл (1-${files.length}):\n${fileList}`);
+                const fileIndex = parseInt(index) - 1;
+                if (fileIndex >= 0 && fileIndex < files.length) {
+                  const file = files[fileIndex];
+                  host._editor.setValue(file.data);
+                  fileNameInput.value = file.name;
+                  const ext = file.name.split('.').pop();
+                  const langMap = { 'js': 'javascript', 'ts': 'typescript', 'html': 'html', 'css': 'css', 'json': 'json', 'py': 'python', 'java': 'java', 'cpp': 'cpp', 'c': 'c' };
+                  if (langMap[ext]) langSelect.value = langMap[ext];
+                  writeOutput(`Файл "${file.name}" загружен!`);
+                }
+              });
 
-          langSelect.addEventListener('change', () => {
-            const lang = langSelect.value;
-            const example = languageExamples[lang];
-            if (example) {
-              host._editor.setValue(example);
-              writeOutput(`Загружен пример для ${langSelect.options[langSelect.selectedIndex].text}`);
-            }
-            const m = host._editor.getModel();
-            if (m) {
-              try {
-                monaco.editor.setModelLanguage(m, lang);
-              } catch (e) {}
-            }
-          });
+              langSelect.addEventListener('change', () => {
+                const lang = langSelect.value;
+                const example = languageExamples[lang];
+                if (example) {
+                  host._editor.setValue(example);
+                  writeOutput(`Загружен пример для ${langSelect.options[langSelect.selectedIndex].text}`);
+                }
+                const m = host._editor.getModel();
+                if (m) {
+                  try {
+                    monaco.editor.setModelLanguage(m, lang);
+                  } catch (e) { }
+                }
+              });
 
-          exampleBtn.addEventListener('click', () => {
-            const lang = langSelect.value;
-            const example = languageExamples[lang];
-            if (example) {
-              host._editor.setValue(example);
-              writeOutput(`Загружен пример для ${langSelect.options[langSelect.selectedIndex].text}`);
-            } else {
-              writeOutput(`Нет примера для языка ${lang}`, true);
-            }
-          });
+              exampleBtn.addEventListener('click', () => {
+                const lang = langSelect.value;
+                const example = languageExamples[lang];
+                if (example) {
+                  host._editor.setValue(example);
+                  writeOutput(`Загружен пример для ${langSelect.options[langSelect.selectedIndex].text}`);
+                } else {
+                  writeOutput(`Нет примера для языка ${lang}`, true);
+                }
+              });
 
-          writeOutput('Output started. Press Run to execute.');
-        });
-      } catch {}
-    };
+              writeOutput('Output started. Press Run to execute.');
+            });
+          } catch { }
+        };
 
-    initMonaco();
-    setTimeout(initMonaco, 0);
+        initMonaco();
+        setTimeout(initMonaco, 0);
 
-    return wrap;
-  },
-  size: { width: 980, height: 640 }
+        return wrap;
+      },
+      size: { width: 980, height: 640 }
     },
     music: {
       title: 'Music',
@@ -4458,81 +4455,427 @@ resetGame();
       },
       size: { width: 800, height: 600 }
     },
-    
     settings: {
-      title: 'Settings',
-      icon: './static/icons/settings.svg',
-      content: () => {
-        const s = loadSettings();
-        const root = el('div', { display: 'grid', gridTemplateRows: 'auto auto', gap: '14px' });
+  title: 'Settings',
+  icon: './static/icons/settings.svg',
+  content: () => {
+    // Определяем все необходимые функции и переменные
+    const errorMessages = {
+      required: 'Поле обязательно для заполнения',
+      nameRequired: 'Поле имени не заполнено',
+      keyRequired: 'Поле ключа не заполнено',
+      passwordRequired: 'Поле пароля не заполнено',
+      keyInvalid: 'Код неверный! Проверь формат или наличие кода в localStorage.',
+      passwordRules: {
+        length: '• минимум 8 символов',
+        ascii: '• только английские буквы и ASCII-символы',
+        uppercase: '• хотя бы одна заглавная буква (A-Z)',
+        digit: '• хотя бы одна цифра (0-9)',
+        special: '• хотя бы один спецсимвол (!@#$% и т.д.)'
+      }
+    };
 
-        try {
-          const userDataStr = localStorage.getItem('user') || localStorage.getItem('user_json');
-          if (userDataStr) {
-            const userData = JSON.parse(userDataStr);
-            if (userData && userData.name) {
-              const welcomeTitle = el('div', { fontWeight: '600', fontSize: '18px', marginBottom: '8px', color: '#4CAF50' }, `Welcome  ${userData.name}`);
-              root.appendChild(welcomeTitle);
-            }
-          }
-        } catch (e) {
-          console.error('Error loading user data in settings:', e);
+    // Helper functions
+    const el = (tag, styles = {}, text = '') => {
+      const element = document.createElement(tag);
+      Object.assign(element.style, styles);
+      if (text) element.textContent = text;
+      return element;
+    };
+
+    const input = (type, placeholder) => {
+      const inp = document.createElement('input');
+      inp.type = type;
+      inp.placeholder = placeholder;
+      inp.style.padding = '6px 12px';
+      inp.style.borderRadius = '8px';
+      inp.style.border = '1px solid rgba(255,255,255,0.12)';
+      inp.style.background = 'rgba(0,0,0,0.25)';
+      inp.style.color = '#e8e8ef';
+      return inp;
+    };
+
+    const btn = (text, onClick) => {
+      const button = document.createElement('button');
+      button.textContent = text;
+      button.style.padding = '6px 16px';
+      button.style.borderRadius = '8px';
+      button.style.border = 'none';
+      button.style.background = 'rgba(255, 255, 255, 0.2)';
+      button.style.color = 'white';
+      button.style.cursor = 'pointer';
+      button.style.fontSize = '13px';
+      button.addEventListener('click', onClick);
+      return button;
+    };
+
+    // Load settings function
+    const loadSettings = () => {
+      try {
+        const saved = localStorage.getItem('app_settings');
+        return saved ? JSON.parse(saved) : {};
+      } catch (e) {
+        console.error('Error loading settings:', e);
+        return {};
+      }
+    };
+
+    // Save settings function
+    const saveSettings = (newSettings) => {
+      try {
+        const current = loadSettings();
+        const updated = { ...current, ...newSettings };
+        localStorage.setItem('app_settings', JSON.stringify(updated));
+      } catch (e) {
+        console.error('Error saving settings:', e);
+      }
+    };
+
+    // Apply wallpaper function
+    const applyWallpaper = (url) => {
+      const wallpaperElem = document.querySelector('.wallpaper');
+      if (wallpaperElem) {
+        if (url) {
+          wallpaperElem.style.backgroundImage = `url('${url}')`;
+          wallpaperElem.style.backgroundSize = 'cover';
+          wallpaperElem.style.backgroundPosition = 'center';
+        } else {
+          wallpaperElem.style.backgroundImage = '';
+        }
+      }
+    };
+
+    // Default wallpapers
+    const defaultWallpapers = [
+      './static/wallpapers/1.jpg',
+      './static/wallpapers/2.jpg',
+      './static/wallpapers/3.jpg',
+      './static/wallpapers/4.jpg',
+      './static/wallpapers/5.jpg',
+      './static/wallpapers/6.jpg'
+    ];
+
+    const s = loadSettings();
+    const root = el('div', { 
+      display: 'grid', 
+      gridTemplateRows: 'auto auto', 
+      gap: '14px',
+      padding: '16px',
+      color: '#e8e8ef'
+    });
+
+    try {
+      const userDataStr = localStorage.getItem('user') || localStorage.getItem('user_json');
+      if (userDataStr) {
+        const userData = JSON.parse(userDataStr);
+        if (userData && userData.name) {
+          const welcomeTitle = el('div', { 
+            fontWeight: '600', 
+            fontSize: '18px', 
+            marginBottom: '8px', 
+            color: 'rgba(255, 255, 255, 0.2)' 
+          }, `Welcome ${userData.name}`);
+          root.appendChild(welcomeTitle);
+        }
+      }
+    } catch (e) {
+      console.error('Error loading user data in settings:', e);
+    }
+
+    // Profile Avatar Section
+    const avatarTitle = el('div', { fontWeight: '600' }, 'Profile Avatar');
+    const avatarRow = el('div', { 
+      display: 'flex', 
+      gap: '8px', 
+      flexWrap: 'wrap', 
+      alignItems: 'center' 
+    });
+    
+    const currentAvatar = (s && s.avatar) ? s.avatar : './static/icons/logo/logost2.jpg';
+    
+    for (let i = 1; i <= 6; i++) {
+      const src = `./static/icons/logo/logost${i}.jpg`;
+      const img = el('img', { 
+        width: '64px', 
+        height: '64px', 
+        cursor: 'pointer', 
+        borderRadius: '8px', 
+        border: '2px solid transparent' 
+      });
+      img.src = src;
+      img.title = `logost${i}`;
+      
+      img.addEventListener('click', () => {
+        const loginImg = document.querySelector('#login-avatar img');
+        if (loginImg) loginImg.src = src;
+        saveSettings({ avatar: src });
+        avatarRow.querySelectorAll('img').forEach(im => im.style.border = '2px solid transparent');
+        img.style.border = '2px solid rgb(48, 159, 0)';
+      });
+      
+      if (src === currentAvatar) {
+        img.style.border = '2px solid rgb(48, 159, 0)';
+      }
+      
+      avatarRow.appendChild(img);
+    }
+
+    const avatarReset = btn('Reset Avatar', () => {
+      const def = './static/icons/logo/logost2.jpg';
+      const loginImg = document.querySelector('#login-avatar img');
+      if (loginImg) loginImg.src = def;
+      saveSettings({ avatar: def });
+      avatarRow.querySelectorAll('img').forEach(im => {
+        im.style.border = im.src.endsWith('logost2.jpg') 
+          ? '2px solid rgba(76, 175, 80, 0.9)' 
+          : '2px solid transparent';
+      });
+    });
+
+    // User Profile Management Section
+    const profileTitle = el('div', { fontWeight: '600', marginTop: '10px' }, 'User Profile');
+    
+    // Current user data
+    let currentUserData = null;
+    try {
+      const userDataStr = localStorage.getItem('user') || localStorage.getItem('user_json');
+      if (userDataStr) {
+        currentUserData = JSON.parse(userDataStr);
+      }
+    } catch (e) {
+      console.error('Error parsing user data:', e);
+    }
+
+    // Password validation function
+    const validatePassword = (password) => {
+      const errors = [];
+      if (password.length < 8) errors.push(errorMessages.passwordRules.length);
+      if (!/[A-Z]/.test(password)) errors.push(errorMessages.passwordRules.uppercase);
+      if (!/[0-9]/.test(password)) errors.push(errorMessages.passwordRules.digit);
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) errors.push(errorMessages.passwordRules.special);
+      if (!/^[\x00-\x7F]*$/.test(password)) errors.push(errorMessages.passwordRules.ascii);
+      return errors;
+    };
+
+    // Profile edit form
+    const profileForm = el('div', { 
+      display: 'grid', 
+      gridTemplateColumns: '1fr', 
+      gap: '12px',
+      background: 'rgba(0,0,0,0.2)',
+      borderRadius: '8px',
+      padding: '12px'
+    });
+
+    // Name field
+    const nameRow = el('div', { display: 'grid', gap: '4px' });
+    const nameLabel = el('label', { fontSize: '14px', color: '#aaa' }, 'Username:');
+    const nameInput = input('text', 'Enter new username');
+    nameInput.value = currentUserData?.name || '';
+    nameInput.style.padding = '8px';
+    nameInput.style.background = 'rgba(255,255,255,0.1)';
+    nameInput.style.border = '1px solid rgba(255,255,255,0.2)';
+    nameInput.style.borderRadius = '6px';
+    nameInput.style.color = '#e8e8ef';
+    
+    const nameError = el('div', { fontSize: '12px', color: '#ff6b6b', minHeight: '18px' });
+
+    // Password fields
+    const passwordRow = el('div', { display: 'grid', gap: '4px' });
+    const passwordLabel = el('label', { fontSize: '14px', color: '#aaa' }, 'New Password:');
+    const passwordInput = document.createElement('input');
+    passwordInput.type = 'password';
+    passwordInput.placeholder = 'Enter new password';
+    passwordInput.style.padding = '8px';
+    passwordInput.style.background = 'rgba(255,255,255,0.1)';
+    passwordInput.style.border = '1px solid rgba(255,255,255,0.2)';
+    passwordInput.style.borderRadius = '6px';
+    passwordInput.style.color = '#e8e8ef';
+
+    const confirmPasswordRow = el('div', { display: 'grid', gap: '4px' });
+    const confirmPasswordLabel = el('label', { fontSize: '14px', color: '#aaa' }, 'Confirm Password:');
+    const confirmPasswordInput = document.createElement('input');
+    confirmPasswordInput.type = 'password';
+    confirmPasswordInput.placeholder = 'Confirm new password';
+    confirmPasswordInput.style.padding = '8px';
+    confirmPasswordInput.style.background = 'rgba(255,255,255,0.1)';
+    confirmPasswordInput.style.border = '1px solid rgba(255,255,255,0.2)';
+    confirmPasswordInput.style.borderRadius = '6px';
+    confirmPasswordInput.style.color = '#e8e8ef';
+
+    const passwordRules = el('div', { 
+      fontSize: '12px', 
+      color: '#aaa',
+      marginTop: '4px',
+      padding: '8px',
+      background: 'rgba(0,0,0,0.3)',
+      borderRadius: '4px'
+    }, 'Password requirements:');
+    
+    const rulesList = el('ul', { 
+      fontSize: '12px', 
+      color: '#aaa',
+      margin: '4px 0 0 0',
+      paddingLeft: '20px'
+    });
+    
+    Object.values(errorMessages.passwordRules).forEach(rule => {
+      const li = el('li', {}, rule);
+      rulesList.appendChild(li);
+    });
+    passwordRules.appendChild(rulesList);
+
+    const passwordError = el('div', { fontSize: '12px', color: '#ff6b6b', minHeight: '18px' });
+    const confirmError = el('div', { fontSize: '12px', color: '#ff6b6b', minHeight: '18px' });
+
+    // Save profile button
+    const saveProfileBtn = btn('Save Profile Changes', () => {
+      let hasError = false;
+      
+      // Validate name
+      if (!nameInput.value.trim()) {
+        nameError.textContent = errorMessages.nameRequired;
+        hasError = true;
+      } else {
+        nameError.textContent = '';
+      }
+
+      // Validate password if provided
+      if (passwordInput.value || confirmPasswordInput.value) {
+        const passwordErrors = validatePassword(passwordInput.value);
+        if (passwordErrors.length > 0) {
+          passwordError.innerHTML = passwordErrors.join('<br>');
+          hasError = true;
+        } else {
+          passwordError.textContent = '';
         }
 
-        const avatarTitle = el('div', { fontWeight: '600' }, 'Profile Avatar');
-        const avatarRow = el('div', { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' });
-        const currentAvatar = (s && s.avatar) ? s.avatar : './static/icons/logo/logost2.jpg';
-        for (let i = 1; i <= 6; i++) {
-          const src = `./static/icons/logo/logost${i}.jpg`;
-          const img = el('img', { width: '64px', height: '64px', cursor: 'pointer', borderRadius: '8px', border: '2px solid transparent' });
-          img.src = src;
-          img.title = `logost${i}`;
-          img.addEventListener('click', () => {
-            const loginImg = document.querySelector('#login-avatar img');
-            if (loginImg) loginImg.src = src;
-            saveSettings({ avatar: src });
-            avatarRow.querySelectorAll('img').forEach(im => im.style.border = '2px solid transparent');
-            img.style.border = '2px solid rgba(76, 175, 80, 0.9)';
-          });
-          if (src === currentAvatar) img.style.border = '2px solid rgba(76, 175, 80, 0.9)';
-          avatarRow.appendChild(img);
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          confirmError.textContent = 'Passwords do not match';
+          hasError = true;
+        } else {
+          confirmError.textContent = '';
         }
-        const avatarReset = btn('Reset Avatar', () => {
-          const def = './static/icons/logo/logost2.jpg';
-          const loginImg = document.querySelector('#login-avatar img');
-          if (loginImg) loginImg.src = def;
-          saveSettings({ avatar: def });
-          avatarRow.querySelectorAll('img').forEach(im => im.style.border = im.src.endsWith('logost2.jpg') ? '2px solid rgba(76, 175, 80, 0.9)' : '2px solid transparent');
-        });
+      } else {
+        passwordError.textContent = '';
+        confirmError.textContent = '';
+      }
 
-        const menuTitle = el('div', { fontWeight: '600' }, 'Taskbar Position');
-        const menuRow = el('div', { display: 'flex', gap: '8px' });
-        const sel = el('select', { height: '34px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.25)', color: '#e8e8ef', padding: '0 8px' });
-        sel.innerHTML = `<option value="center">Center</option><option value="left">Left</option><option value="right">Right</option>`;
-        sel.value = s.menuStyle || 'center';
-        sel.addEventListener('change', () => { applyMenuStyle(sel.value); saveSettings({ menuStyle: sel.value }); });
-        menuRow.appendChild(sel);
-        const builtinTitle = el('div', { fontWeight: '600' }, 'Built-in Wallpapers (6)');
-        const builtinRow = el('div', { display: 'flex', flexWrap: 'wrap', gap: '8px' });
-        const builtin = defaultWallpapers.slice();
-        builtin.forEach((url, idx) => builtinRow.appendChild(btn(`Wallpaper ${idx + 1}`, () => { applyWallpaper(url); saveSettings({ wallpapers: (loadSettings().wallpapers || builtin), selectedWallpaperIndex: idx }); })));
-        const wpTitle = el('div', { fontWeight: '600' }, 'Custom Wallpaper (URL from internet, 1)');
-        const wpWrap = el('div', { display: 'grid', gridTemplateColumns: '1fr', gap: '8px' });
-        const wallpapers = Array.isArray(s.wallpapers) ? s.wallpapers.slice(0, 1) : [];
-        while (wallpapers.length < 1) wallpapers.push('');
-        const renderWpRow = index => {
-          const row = el('div', { display: 'flex', gap: '8px' });
-          const inp = input('text', `Image URL #${index + 1}`);
-          inp.value = wallpapers[index] || '';
-          row.append(inp, btn('Save', () => { wallpapers[index] = inp.value.trim(); saveSettings({ wallpapers: wallpapers.slice(0, 1) }); }), btn('Apply', () => { const url = inp.value.trim(); if (url) { applyWallpaper(url); const ws = (loadSettings().wallpapers || wallpapers).slice(0, 1); ws[index] = url; saveSettings({ wallpapers: ws.slice(0, 1), selectedWallpaperIndex: index }); } }));
-          return row;
+      if (!hasError) {
+        // Update user data in localStorage
+        const updatedUserData = {
+          ...currentUserData,
+          name: nameInput.value.trim()
         };
-        for (let i = 0; i < 1; i++) wpWrap.appendChild(renderWpRow(i));
-        root.append(avatarTitle, avatarRow, avatarReset, menuTitle, menuRow, builtinTitle, builtinRow, wpTitle, wpWrap, btn('Reset Wallpaper', () => { applyWallpaper(null); saveSettings({ selectedWallpaperIndex: -1 }); }));
-        return root;
-      },
-      size: { width: 520, height: 400 }
-    },
+        
+        // Update password if provided
+        if (passwordInput.value) {
+          updatedUserData.password = passwordInput.value;
+        }
+
+        localStorage.setItem('user', JSON.stringify(updatedUserData));
+        localStorage.setItem('user_json', JSON.stringify(updatedUserData));
+
+        // Update welcome message
+        const welcomeTitle = root.querySelector('div[style*="color: #c3c3c3"]');
+        if (welcomeTitle) {
+          welcomeTitle.textContent = `Welcome ${nameInput.value.trim()}`;
+        }
+
+        passwordInput.value = '';
+        confirmPasswordInput.value = '';
+
+        alert('Profile updated successfully!');
+      }
+    });
+    nameRow.append(nameLabel, nameInput, nameError);
+    passwordRow.append(passwordLabel, passwordInput, passwordError);
+    confirmPasswordRow.append(confirmPasswordLabel, confirmPasswordInput, confirmError);
+    
+    profileForm.append(
+      nameRow,
+      passwordRow,
+      confirmPasswordRow,
+      passwordRules,
+      saveProfileBtn
+    );
+
+    const builtinTitle = el('div', { fontWeight: '600' }, 'Built-in Wallpapers (6)');
+    const builtinRow = el('div', { display: 'flex', flexWrap: 'wrap', gap: '8px' });
+    const builtin = defaultWallpapers.slice();
+    
+    builtin.forEach((url, idx) => {
+      builtinRow.appendChild(btn(`Wallpaper ${idx + 1}`, () => { 
+        applyWallpaper(url); 
+        saveSettings({ 
+          wallpapers: (loadSettings().wallpapers || builtin), 
+          selectedWallpaperIndex: idx 
+        }); 
+      }));
+    });
+    
+    const wpTitle = el('div', { fontWeight: '600' }, 'Custom Wallpaper (URL from internet, 1)');
+    const wpWrap = el('div', { display: 'grid', gridTemplateColumns: '1fr', gap: '8px' });
+    const wallpapers = Array.isArray(s.wallpapers) ? s.wallpapers.slice(0, 1) : [];
+    
+    while (wallpapers.length < 1) {
+      wallpapers.push('');
+    }
+    
+    const renderWpRow = index => {
+      const row = el('div', { display: 'flex', gap: '8px' });
+      const inp = input('text', `Image URL #${index + 1}`);
+      inp.value = wallpapers[index] || '';
+      inp.style.flex = '1';
+      
+      row.append(
+        inp, 
+        btn('Save', () => { 
+          wallpapers[index] = inp.value.trim(); 
+          saveSettings({ wallpapers: wallpapers.slice(0, 1) }); 
+        }), 
+        btn('Apply', () => { 
+          const url = inp.value.trim(); 
+          if (url) { 
+            applyWallpaper(url); 
+            const ws = (loadSettings().wallpapers || wallpapers).slice(0, 1); 
+            ws[index] = url; 
+            saveSettings({ 
+              wallpapers: ws.slice(0, 1), 
+              selectedWallpaperIndex: index 
+            }); 
+          } 
+        })
+      );
+      return row;
+    };
+    
+    for (let i = 0; i < 1; i++) {
+      wpWrap.appendChild(renderWpRow(i));
+    }
+    
+    const resetWallpaperBtn = btn('Reset Wallpaper', () => { 
+      applyWallpaper(null); 
+      saveSettings({ selectedWallpaperIndex: -1 }); 
+    });
+
+    root.append(
+      avatarTitle, 
+      avatarRow, 
+      avatarReset,
+      profileTitle,
+      profileForm,
+      builtinTitle, 
+      builtinRow, 
+      wpTitle, 
+      wpWrap, 
+      resetWallpaperBtn
+    );
+    
+    return root;
+  },
+  size: { width: 520, height: 600 }
+},
     snake: {
       title: 'Snake',
       icon: './static/icons/game_icon_176683.png',
@@ -7816,8 +8159,8 @@ color red
     let selectedIcons = new Set();
     let dragState = null;
     const DRAG_THRESHOLD = 5;
-    const ICON_WIDTH = 92;
-    const ICON_HEIGHT = 82;
+    const ICON_WIDTH = 95;
+    const ICON_HEIGHT = 85;
     const GAP = 6;
     const PADDING = DESKTOP_GRID.PADDING;
 
@@ -8064,7 +8407,39 @@ color red
     applyPositions();
     updateSelectionUI();
   })();
+  (function initUser() {
+    const userKey = "user";
 
+    function hasValidUser() {
+      try {
+        const raw = localStorage.getItem(userKey);
+        if (!raw) return false;
+        JSON.parse(raw);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    if (!hasValidUser()) {
+      const user = {
+        step: 2,
+        name: "User",
+        lang: "ru",
+        isAdmin: false,
+        activationPassed: true,
+        activationKey: "0000-0000-0000-0000",
+        password: "Abcdefg1!",
+        pcKey: "0000-0000-0000-0000",
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(userKey, JSON.stringify(user));
+      console.log("Пользователь создан:", user);
+    } else {
+      console.log("Пользователь уже существует");
+    }
+  })();
   function sortDesktopBy(by) {
     const container = document.querySelector('.desktop-icons');
     if (!container) return;
@@ -9650,6 +10025,27 @@ function bringToFront(element) {
   element.style.zIndex = '10000';
   element.classList.add('focused');
 }
+function hasUser() {
+  return !!localStorage.getItem("user");
+}
+
+if (!hasUser()) {
+  const user = {
+    step: 2,
+    name: "User",
+    lang: "ru",
+    isAdmin: false,
+    activationPassed: true,
+    activationKey: "0000-0000-0000-0000",
+    password: "Abcdefg1!",
+    pcKey: "0000-0000-0000-0000",
+    createdAt: new Date().toISOString()
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
+}
+hasUser()
+window.checkAndCreateUser = checkAndCreateUser
 window.loadWallpaper = loadWallpaper;
 window.handleLogin = handleLogin;
 window.launchApp = launchApp;
