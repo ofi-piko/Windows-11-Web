@@ -82,7 +82,6 @@ class FileStorageManager {
     const fsData = localStorage.getItem(fsKey);
     const fs = fsData ? JSON.parse(fsData) : null;
     if (!fs) {
-      alert('Файловая система не инициализирована. Откройте Explorer для настройки.');
       return;
     }
 
@@ -279,7 +278,6 @@ class FileStorageManager {
     saveBtn.addEventListener('click', () => {
       const fileName = fileNameInput.value.trim();
       if (!fileName) {
-        alert('Введите имя файла');
         return;
       }
       const path = selectedPath.join('\\');
@@ -287,7 +285,6 @@ class FileStorageManager {
         if (callback) callback(selectedDrive, path, fileName);
         overlay.remove();
       } else {
-        alert('Ошибка сохранения');
       }
     });
 
@@ -835,7 +832,6 @@ class DesktopItemsManager {
       icon.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         if (item.type === 'folder') {
-          alert('Папка: ' + item.name);
         } else {
           window.__desktopFileToOpen = { id, name: item.name, content: item.content };
           const notepadApp = document.querySelector('[data-app-id="notepad"]');
@@ -1526,11 +1522,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!parent) return;
 
             if (item.type === 'folder') {
-              if (parent.folders[trimmed]) { alert('Папка с таким именем уже существует'); return; }
+              if (parent.folders[trimmed]) { return; }
               parent.folders[trimmed] = parent.folders[oldName];
               delete parent.folders[oldName];
             } else {
-              if (parent.files[trimmed]) { alert('Файл с таким именем уже существует'); return; }
+              if (parent.files[trimmed]) {return; }
               parent.files[trimmed] = parent.files[oldName];
               delete parent.files[oldName];
             }
@@ -1540,7 +1536,6 @@ document.addEventListener('DOMContentLoaded', () => {
             renderContent();
           } catch (e) {
             console.error('Rename failed', e);
-            alert('Ошибка переименования');
           }
         };
 
@@ -1549,7 +1544,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const win = document.querySelector('.window[data-app-id="explorer"]');
             if (!win) return;
             if (e.key === 'F2') {
-              if (!selectedItem) { alert('Выберите элемент для переименования'); return; }
+              if (!selectedItem) {return; }
               startRename(selectedItem);
             }
           } catch (err) { }
@@ -1661,7 +1656,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (folderName && folderName.trim()) {
               if (window.desktopItems) {
                 window.desktopItems.addFolder(folderName.trim());
-                alert(`Папка "${folderName.trim()}" создана на рабочий стол!`);
               }
             }
           });
@@ -1792,7 +1786,6 @@ document.addEventListener('DOMContentLoaded', () => {
             uploadBtn.addEventListener('click', () => {
               const file = fileInput.files[0];
               if (!file) {
-                alert('Please select a file');
                 return;
               }
 
@@ -1814,7 +1807,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const path = currentPath.join('\\');
                 fileStorage.saveToDrive(driveLetter, path, file.name, fileData, fileType);
 
-                alert(`File "${file.name}" saved to drive ${driveLetter}: with ID in library`);
                 overlay.remove();
                 renderContent();
               };
@@ -1990,7 +1982,6 @@ document.addEventListener('DOMContentLoaded', () => {
                   e.stopPropagation();
                   const dataString = `data.images[${image.id - 1}]`;
                   navigator.clipboard.writeText(dataString);
-                  alert(`Copied: ${dataString}`);
                 });
 
                 actions.append(viewBtn, copyBtn);
@@ -2091,7 +2082,6 @@ document.addEventListener('DOMContentLoaded', () => {
                   e.stopPropagation();
                   const dataString = `data.texts[${text.id - 1}]`;
                   navigator.clipboard.writeText(dataString);
-                  alert(`Copied: ${dataString}`);
                 });
 
                 actions.append(viewBtn, copyBtn);
@@ -2303,7 +2293,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
               copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(code);
-                alert('JSON copied to clipboard!');
               });
 
               closeBtn.addEventListener('click', () => previewOverlay.remove());
@@ -2445,7 +2434,6 @@ document.addEventListener('DOMContentLoaded', () => {
           createBtn.addEventListener('click', () => {
             const folderName = input.value.trim();
             if (!folderName) {
-              alert('Please enter a folder name');
               return;
             }
             if (currentPath.length === 1) {
@@ -2580,9 +2568,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const fileContent = textarea.value;
           if (window.desktopItems) {
             window.desktopItems.addFile(fileName, fileContent, 'text');
-            alert(`Файл "${fileName}" сохранен на рабочий стол!`);
           } else {
-            alert('Desktop Items Manager не инициализирован');
           }
         });
 
@@ -2597,7 +2583,6 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.value,
             'text',
             (drive, path, fileName) => {
-              alert(`Файл "${fileName}" сохранен на диск ${drive}: в папке ${path || 'корень'}`);
             }
           );
         });
@@ -2605,7 +2590,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadBtn.addEventListener('click', () => {
           const files = fileStorage.getAllFiles();
           if (files.length === 0) {
-            alert('Нет сохраненных файлов');
             return;
           }
           const fileList = files.map((f, i) => `${i + 1}. ${f.name} (${f.type})`).join('\n');
@@ -2742,13 +2726,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const fileName = fileNameInput.value.trim() || 'image.png';
           const dataUrl = canvas.toDataURL('image/png');
           const fileId = fileStorage.saveFile(fileName, dataUrl, 'image');
-          alert(`Изображение "${fileName}" сохранено!`);
         });
 
         loadBtn.addEventListener('click', () => {
           const files = fileStorage.getAllFiles().filter(f => f.type === 'image');
           if (files.length === 0) {
-            alert('Нет сохраненных изображений');
             return;
           }
           const fileList = files.map((f, i) => `${i + 1}. ${f.name}`).join('\n');
@@ -4277,7 +4259,7 @@ function draw(){
 function move(){
     let head={x:snake[0].x+dx,y:snake[0].y+dy};
     if(head.x<0||head.x>=20||head.y<0||head.y>=20||snake.some(s=>s.x===head.x&&s.y===head.y)){
-        clearInterval(gameLoop);alert('Игра окончена! Счёт: '+score);resetGame();return;
+        clearInterval(gameLoop);resetGame();return;
     }
     snake.unshift(head);
     if(head.x===food.x&&head.y===food.y){
@@ -4318,7 +4300,6 @@ resetGame();
 
         createBtn.addEventListener('click', () => {
           if (tickets < 3) {
-            alert('Недостаточно токенов! Сыграйте в Азарт, чтобы заработать.');
             return;
           }
 
@@ -4427,7 +4408,6 @@ resetGame();
             a.click();
             URL.revokeObjectURL(url);
           } else {
-            alert('Нет игры для сохранения');
           }
         };
 
@@ -4785,7 +4765,6 @@ resetGame();
         passwordInput.value = '';
         confirmPasswordInput.value = '';
 
-        alert('Profile updated successfully!');
       }
     });
     nameRow.append(nameLabel, nameInput, nameError);
@@ -6769,8 +6748,6 @@ resetGame();
             gameRunning = false;
             clearInterval(gameTimer);
             clearInterval(gameLoop);
-            status.textContent = 'Победа! Вы прошли лабиринт!';
-            status.textContent = alert('Победа! Вы прошли лабиринт!');
             return;
           }
 
@@ -8983,7 +8960,6 @@ color red
           greeting.textContent = `hello, ${userName}`;
         }
       } else {
-        alert('Please enter your name');
       }
     }
   };
